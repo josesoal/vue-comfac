@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-app-bar color="teal darken-1" dense dark>
-          <v-toolbar-title>Compra</v-toolbar-title>
+          <v-toolbar-title>Modulo Compra</v-toolbar-title>
 
           <v-spacer></v-spacer>
 

@@ -14,6 +14,20 @@ class ApiCompra extends Api {
   async delProveedor( id ) {
     return await super.delete( 'proveedor', id );
   }
+  /*** COMPRA MAESTRO ***/
+  async getCompra( id ) {
+    return await super.get( 'compra', id );
+  }
+  async saveCompra( obj ) {
+    return await super.save( 'compra', obj );
+  }
+  /*** COMPRA DETALLE ***/
+  async saveDetalle( obj ) {
+    return await super.save( 'compra-detalle', obj );
+  }
+  async delDetalle( id ) {
+    return await super.delete( 'compra-detalle', id );
+  }
 }
 
 export default new ApiCompra();

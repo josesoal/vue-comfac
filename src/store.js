@@ -138,12 +138,27 @@ const moduleInventario = {
 const moduleCompra = {
   state: {
     proveedores: [],
+    compra: {
+      id: -1,
+      fecha: new Date().toISOString().substr(0,10),
+      proveedor: '',
+      detalle: []
+    },
   },
   getters: {
   },
   mutations: {
     SET_PROVEEDORES( state, items ) {
       state.proveedores = items;
+    },
+    SET_COMPRA( state, item ) {
+      state.compra = item;
+    },
+    CLEAN_COMPRA( state ) {
+      state.compra.id = -1;
+      state.compra.fecha = new Date().toISOString().substr(0,10);
+      state.compra.proveedor = '';
+      state.compra.detalle = [];
     },
   },
   actions: {
@@ -182,9 +197,70 @@ const moduleCompra = {
         alert(error);
       }
     },
-    /*** something ***/
-
-    /*** something ***/
+    /*** COMPRA MAESTRO ***/
+    cleanCompra( {commit} ) {
+      commit( 'CLEAN_COMPRA' );
+    },
+    async getCompra( {commit, /*state*/}, id ) {
+      try {
+        commit( 'SET_COMPRA', await apiCompra.getCompra(id) );
+      }
+      catch ( error ) {
+        console.log( error );
+        alert(error);
+      }
+    },
+    async saveCompra( {commit}, {compra, detalle} ) {
+      try {
+        const e = await apiCompra.saveCompra( compra );
+ 
+        detalle.cabecera = e.id;
+        await apiCompra.saveDetalle( detalle );
+        
+        commit( 'SET_COMPRA', await apiCompra.getCompra( e.id ) );
+        
+        if (compra.id === -1)
+          alert('Compra registrada exitosamente');
+        else
+          alert('Compra actualizada exitosamente');
+      }
+      catch ( error ) {
+        console.log( error );
+        alert(error);
+      }
+    },
+    /*** COMPRA DETALLE ***/
+    async saveDetalle( {commit, state}, item ) {
+      try {
+        await apiCompra.saveDetalle( item );
+        commit( 
+          'SET_COMPRA', 
+          await apiCompra.getCompra( state.compra.id ) 
+        );
+        if (item.id === -1)
+          alert('Detalle insertado exitosamente');
+        else
+          alert('Detalle actualizado exitosamente');
+      }
+      catch ( error ) {
+        console.log( error );
+        alert(error);
+      }
+    },
+    async deleteDetalle( {commit, state}, id ) {
+      try {
+        await apiCompra.delDetalle( id );
+        commit( 
+          'SET_COMPRA', 
+          await apiCompra.getCompra(state.compra.id) 
+        );
+        alert('Detalle eliminado exitosamente' );
+      }
+      catch ( error ) {
+        console.log( error );
+        alert(error);
+      }
+    },
   }
 }
 
