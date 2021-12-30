@@ -21,7 +21,7 @@
 
           <ModalCategoria ref="modal"></ModalCategoria>
           
-          <DialogDelCategoria ref="dialog"></DialogDelCategoria>
+          <DeleteDialog action="deleteCategoria" ref="dialog"></DeleteDialog>
         </v-toolbar>
       </template>
 
@@ -43,13 +43,13 @@
 
 <script>
 import ModalCategoria from './ModalCategoria.vue';
-import DialogDelCategoria from './DialogDelCategoria.vue';
+import DeleteDialog from './../../DeleteDialog.vue';
 
 export default {
   name: 'Categoria',
   components: {
     ModalCategoria,
-    DialogDelCategoria,
+    DeleteDialog,
   },
   data() {
     return {

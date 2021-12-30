@@ -6,7 +6,7 @@
       class="elevation-1"
     >
       <template v-slot:top>
-        <DialogDelDetalle ref="dialog"></DialogDelDetalle>
+        <DeleteDialog action="deleteDetalle" ref="dialog"></DeleteDialog>
       </template>
 
       <template v-slot:item.acciones="{ item }">
@@ -35,12 +35,12 @@
 </template>
 
 <script>
-import DialogDelDetalle from './DialogDelDetalle.vue';
+import DeleteDialog from './../../DeleteDialog.vue';
 
 export default {
   name: "Detalle",
   components: {
-    DialogDelDetalle,
+    DeleteDialog,
   },
   data() {
     return {

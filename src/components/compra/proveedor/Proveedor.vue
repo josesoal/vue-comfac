@@ -21,7 +21,7 @@
 
           <ModalProveedor ref="modal"></ModalProveedor>
           
-          <DialogDelProveedor ref="dialog"></DialogDelProveedor>
+          <DeleteDialog action="deleteProveedor" ref="dialog"></DeleteDialog>
         </v-toolbar>
       </template>
 
@@ -43,12 +43,13 @@
 
 <script>
 import ModalProveedor from './ModalProveedor.vue';
-import DialogDelProveedor from './DialogDelProveedor.vue';
+import DeleteDialog from './../../DeleteDialog.vue';
+
 export default {
   name: 'Proveedor',
   components: {
     ModalProveedor,
-    DialogDelProveedor,
+    DeleteDialog,
   },
   data() {
     return {

@@ -21,7 +21,7 @@
 
           <ModalSubCategoria ref="modal"></ModalSubCategoria>
           
-          <DialogDelSubCategoria ref="dialog"></DialogDelSubCategoria>
+          <DeleteDialog action="deleteSubCategoria" ref="dialog"></DeleteDialog>
         </v-toolbar>
       </template>
 
@@ -43,12 +43,12 @@
 
 <script>
 import ModalSubCategoria from './ModalSubCategoria.vue';
-import DialogDelSubCategoria from './DialogDelSubCategoria.vue';
+import DeleteDialog from './../../DeleteDialog.vue';
 export default {
   name : 'SubCategoria',
   components: {
     ModalSubCategoria,
-    DialogDelSubCategoria,
+    DeleteDialog,
   },
   data() {
     return {

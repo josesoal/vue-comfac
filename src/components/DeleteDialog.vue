@@ -14,25 +14,30 @@
 
 <script>
 export default {
-  name: 'DialogDelCategoria',
+  name: 'DeleteDialog',
+  props: ['action'],
   data() {
     return {
       dialog: false,
       id: -1,
-      descripcion: ''
     }
   },
   methods: {
     show( item) {
       this.id = item.id;
-      this.descripcion = item.descripcion;
       this.dialog = true;
     },
     closeDelete() {
       this.dialog = false;
     },
     async deleteItemConfirm() {
-      await this.$store.dispatch( 'deleteCategoria', this.id ).moduleI;
+      //await this.$store.dispatch( this.action, this.id ).moduleI;
+      /* Does not need to specify "moduleI" because the 
+        modules in the store are not namespaced 
+        See: https://vuex.vuejs.org/guide/modules.html#namespacing 
+      */
+
+      await this.$store.dispatch( this.action, this.id );
       this.dialog = false;
     }
   }

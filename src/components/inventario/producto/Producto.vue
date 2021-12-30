@@ -21,7 +21,7 @@
 
           <ModalProducto ref="modal"></ModalProducto>
           
-          <DialogDelProducto ref="dialog"></DialogDelProducto>
+          <DeleteDialog action="deleteProducto" ref="dialog"></DeleteDialog>
         </v-toolbar>
       </template>
 
@@ -43,13 +43,13 @@
 
 <script>
 import ModalProducto from './ModalProducto.vue';
-import DialogDelProducto from './DialogDelProducto.vue';
+import DeleteDialog from './../../DeleteDialog.vue';
 
 export default {
   name : 'Producto',
   components: {
     ModalProducto,
-    DialogDelProducto,
+    DeleteDialog,
   },
   data() {
     return {
