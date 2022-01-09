@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import apiInve from './components/inventario/ApiInventario'
 import apiCompra from './components/compra/ApiCompra'
+import apiFacturacion from './components/facturacion/ApiFacturacion'
 
 Vue.use(Vuex)
 
@@ -264,10 +265,75 @@ const moduleCompra = {
   }
 }
 
+const moduleFacturacion = {
+  state: {
+    clientes: [],
+    /*compra: {
+      id: -1,
+      fecha: new Date().toISOString().substr(0,10),
+      proveedor: '',
+      detalle: []
+    },*/
+  },
+  getters: {
+  },
+  mutations: {
+    SET_CLIENTES( state, items ) {
+      state.clientes = items;
+    },
+    /*SET_COMPRA( state, item ) {
+      state.compra = item;
+    },
+    CLEAN_COMPRA( state ) {
+      state.compra.id = -1;
+      state.compra.fecha = new Date().toISOString().substr(0,10);
+      state.compra.proveedor = '';
+      state.compra.detalle = [];
+    },*/
+  },
+  actions: {
+    /*** CLIENTE ***/
+    async getCliente( {commit, /*state*/} ) {
+      try {
+        commit( 'SET_CLIENTES', await apiFacturacion.getCliente() );
+      }
+      catch ( error ) {
+        console.log( error );
+        alert(error);
+      }
+    },
+    async saveCliente( {commit}, item ) {
+      try {
+        await apiFacturacion.saveCliente( item );
+        commit( 'SET_CLIENTES', await apiFacturacion.getCliente() );
+        if (item.id === -1)
+          alert('Cliente insertado exitosamente');
+        else
+          alert('Cliente actualizado exitosamente');
+      }
+      catch ( error ) {
+        console.log( error );
+        alert(error);
+      }
+    },
+    async deleteCliente( {commit}, id ) {
+      try {
+        await apiFacturacion.delCliente( id );
+        commit( 'SET_CLIENTES', await apiFacturacion.getCliente() );
+        alert('Cliente eliminado exitosamente' );
+      }
+      catch ( error ) {
+        console.log( error );
+        alert(error);
+      }
+    },
+  }
+}
+
 export default new Vuex.Store({
   modules: {
     moduleI: moduleInventario,
     moduleC: moduleCompra,
-    //moduleF: moduleFacturacion
+    moduleF: moduleFacturacion
   }
 });

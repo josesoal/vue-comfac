@@ -14,14 +14,14 @@
           <v-row>
             <v-col cols="2">
               <v-text-field
-                v-model="proveedor.id"
+                v-model="cliente.id"
                 label="Id"
                 disabled
               ></v-text-field>
             </v-col>
             <v-col cols="10">
               <v-text-field
-                v-model="proveedor.nombre"
+                v-model="cliente.nombre"
                 :rules="nameRules"
                 label="Nombre"
               ></v-text-field>
@@ -30,17 +30,25 @@
           <v-row>
             <v-col>
               <v-text-field
-                v-model="proveedor.telefono"
+                v-model="cliente.telefono"
                 :rules="textRules"
                 label="Telefono"
               ></v-text-field>
             </v-col>
             <v-col>
               <v-text-field
-                v-model="proveedor.email"
+                v-model="cliente.email"
                 :rules="emailRules"
                 label="Email"
               ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-switch
+                v-model="cliente.estado"
+                label="Estado"
+              ></v-switch>
             </v-col>
           </v-row>
         </v-container>
@@ -64,20 +72,21 @@
       </v-card-actions>
     </v-card>
     </v-form>
-  </v-dialog> 
+  </v-dialog>
 </template>
 
 <script>
 export default {
-  name: 'ModalProveedor',
+  name: 'ModalCliente',
   data() {
     return {
       dialog: false,
-      proveedor: {
+      cliente: {
         id: -1,
         nombre: '',
         telefono: '',
-        email: ''
+        email: '',
+        estado: true,
       },
       emailRules: [
         v => !!v || "Email es requerido",
@@ -95,7 +104,7 @@ export default {
   },
   computed: {
     title() {
-      return this.proveedor.id === -1 ? 'Nuevo Proveedor' : 'Editar Proveedor';
+      return this.cliente.id === -1 ? 'Nuevo cliente' : 'Editar cliente';
     },
   },
   watch: {
@@ -109,18 +118,20 @@ export default {
   methods: {
     show( item = null ) {
       if (item !== null){
-        this.proveedor.id = item.id;
-        this.proveedor.nombre = item.nombre;
-        this.proveedor.telefono = item.telefono;
-        this.proveedor.email = item.email;
+        this.cliente.id = item.id;
+        this.cliente.nombre = item.nombre;
+        this.cliente.telefono = item.telefono;
+        this.cliente.email = item.email;
+        this.cliente.estado = item.estado;
       }
       this.dialog = true;
     },
     clean() {
-      this.proveedor.id = -1;
-      this.proveedor.nombre = '';
-      this.proveedor.telefono = '';
-      this.proveedor.email = '';
+      this.cliente.id = -1;
+      this.cliente.nombre = '';
+      this.cliente.telefono = '';
+      this.cliente.email = '';
+      this.cliente.estado = true;
     },
     close() {
       this.clean();
@@ -128,9 +139,9 @@ export default {
     },
     async save() {
       await this.$store.dispatch( 
-        'saveProveedor', 
-        this.$data.proveedor 
-      ).moduleC;
+        'saveCliente', 
+        this.$data.cliente 
+      ).moduleF;
 
       this.close();
     },
