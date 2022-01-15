@@ -111,6 +111,7 @@
 <script>
 import Detalle from './Detalle.vue';
 import DialogSearchCompra from './DialogSearchCompra.vue';
+
 export default {
   name: 'Comprar',
   components: {

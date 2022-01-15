@@ -32,8 +32,8 @@ const moduleInventario = {
         commit( 'SET_CATEGORIAS', await apiInve.getCategoria() );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async saveCategoria( {commit}, item ) {
@@ -46,8 +46,8 @@ const moduleInventario = {
           alert('Categoria actualizada exitosamente');
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async deleteCategoria( {commit}, id ) {
@@ -57,8 +57,8 @@ const moduleInventario = {
         alert('Categoria eliminada exitosamente' );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
 
@@ -68,8 +68,8 @@ const moduleInventario = {
         commit( 'SET_SUBCATEGORIAS', await apiInve.getSubCategoria() );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async saveSubCategoria( {commit}, item ) {
@@ -82,8 +82,8 @@ const moduleInventario = {
           alert('SubCategoria actualizada exitosamente');       
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async deleteSubCategoria( {commit}, id ) {
@@ -93,8 +93,8 @@ const moduleInventario = {
         alert('SubCategoria eliminada exitosamente' );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
 
@@ -104,8 +104,8 @@ const moduleInventario = {
         commit( 'SET_PRODUCTOS', await apiInve.getProducto() );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async saveProducto( {commit}, item ) {
@@ -118,8 +118,8 @@ const moduleInventario = {
           alert('Producto actualizado exitosamente');       
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async deleteProducto( {commit}, id ) {
@@ -129,8 +129,8 @@ const moduleInventario = {
         alert('Producto eliminado exitosamente' );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
   }
@@ -169,8 +169,8 @@ const moduleCompra = {
         commit( 'SET_PROVEEDORES', await apiCompra.getProveedor() );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async saveProveedor( {commit}, item ) {
@@ -183,8 +183,8 @@ const moduleCompra = {
           alert('Proveedor actualizado exitosamente');
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async deleteProveedor( {commit}, id ) {
@@ -194,8 +194,8 @@ const moduleCompra = {
         alert('Proveedor eliminado exitosamente' );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     /*** COMPRA MAESTRO ***/
@@ -207,8 +207,8 @@ const moduleCompra = {
         commit( 'SET_COMPRA', await apiCompra.getCompra(id) );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async saveCompra( {commit}, {compra, detalle} ) {
@@ -226,8 +226,8 @@ const moduleCompra = {
           alert('Compra actualizada exitosamente');
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     /*** COMPRA DETALLE ***/
@@ -244,8 +244,8 @@ const moduleCompra = {
           alert('Detalle actualizado exitosamente');
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async deleteDetalle( {commit, state}, id ) {
@@ -258,8 +258,8 @@ const moduleCompra = {
         alert('Detalle eliminado exitosamente' );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
   }
@@ -268,12 +268,19 @@ const moduleCompra = {
 const moduleFacturacion = {
   state: {
     clientes: [],
-    /*compra: {
+    cliente: {
+      id: -1,
+      nombre: '',
+      telefono: '',
+      email: '',
+      estado: true,
+    },
+    factura: {
       id: -1,
       fecha: new Date().toISOString().substr(0,10),
-      proveedor: '',
+      cliente: '',
       detalle: []
-    },*/
+    },
   },
   getters: {
   },
@@ -281,25 +288,74 @@ const moduleFacturacion = {
     SET_CLIENTES( state, items ) {
       state.clientes = items;
     },
-    /*SET_COMPRA( state, item ) {
-      state.compra = item;
+    CLEAN_CLIENTES( state ) {
+      state.clientes = [];
     },
-    CLEAN_COMPRA( state ) {
-      state.compra.id = -1;
-      state.compra.fecha = new Date().toISOString().substr(0,10);
-      state.compra.proveedor = '';
-      state.compra.detalle = [];
-    },*/
+    SET_CLIENTE( state, item ) {
+      state.cliente = item;
+    },
+    SELECT_CLIENTE( state, item ) {
+      state.factura.cliente = item.id;
+      state.cliente.nombre = item.nombre;
+    },
+    SET_FACTURA( state, item ) {
+      state.factura = item;
+    },
+    CLEAN_FACTURA( state ) {
+      state.factura.id = -1;
+      state.factura.fecha = new Date().toISOString().substr(0,10);
+      state.factura.cliente = '';
+      state.factura.detalle = [];
+    },
   },
   actions: {
     /*** CLIENTE ***/
+    cleanClientes( {commit} ) {
+      commit( 'CLEAN_CLIENTES' );
+    },
+    async getClienteId( {commit, /*state*/}, id ) {
+      try {
+        commit( 'SET_CLIENTE', await apiFacturacion.getCliente( id ) );
+      }
+      catch ( error ) {
+        if ( error.toString() === 'Error: 404') {
+          commit( 'SET_CLIENTE', {} );
+          console.log( 'HTTP error! status: ' + error );
+          alert('Cliente no encontrado');
+        }
+        else {
+          console.log( 'HTTP error! status: ' + error );
+          alert('Error inesperado');
+        }
+      }
+    },
+    async getClienteByName( {commit, /*state*/}, texto ) {
+      try {
+        const e = await apiFacturacion.getClienteByName(texto);
+      
+        if ( e.detail !== undefined ){
+          alert( e.detail );
+          commit( 'CLEAN_CLIENTES' );
+        }
+        else {
+          commit( 'SET_CLIENTES', e );
+        }        
+      }
+      catch ( error ) {
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
+      }
+    },
+    selectCliente( {commit}, {id, nombre} ) {
+      commit( 'SELECT_CLIENTE', {id: id, nombre: nombre} );
+    },
     async getCliente( {commit, /*state*/} ) {
       try {
         commit( 'SET_CLIENTES', await apiFacturacion.getCliente() );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async saveCliente( {commit}, item ) {
@@ -312,8 +368,8 @@ const moduleFacturacion = {
           alert('Cliente actualizado exitosamente');
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
     async deleteCliente( {commit}, id ) {
@@ -323,8 +379,74 @@ const moduleFacturacion = {
         alert('Cliente eliminado exitosamente' );
       }
       catch ( error ) {
-        console.log( error );
-        alert(error);
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
+      }
+    },
+    /*** FACTURA MAESTRO ***/
+    cleanFactura( {commit} ) {
+      commit( 'CLEAN_FACTURA' );
+    },
+    async getFactura( {commit, state}, id ) {
+      try {
+        commit( 'SET_FACTURA', await apiFacturacion.getFactura( id ) );
+        commit( 'SET_CLIENTE', await apiFacturacion.getCliente( state.factura.cliente ) );
+      }
+      catch ( error ) {
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
+      }
+    },
+    async saveFactura( {commit}, {factura, detalle} ) {
+      try {
+        const e = await apiFacturacion.saveFactura( factura );
+ 
+        detalle.cabecera = e.id;
+        const res = await apiFacturacion.saveDetalle( detalle );
+        
+        commit( 'SET_FACTURA', await apiFacturacion.getFactura( e.id ) );
+        alert('Factura creada exitosamente');
+
+        if ( res.id === undefined ){
+          alert( res );
+        }
+      }
+      catch ( error ) {
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
+      }
+    },
+    /*** FACTURA DETALLE ***/
+    async saveDetalleFactura( {commit, state}, item ) {
+      try {
+        const res = await apiFacturacion.saveDetalle( item );
+        if ( res.id === undefined ){
+          alert( res );
+        } 
+        else {
+          commit( 
+            'SET_FACTURA', 
+            await apiFacturacion.getFactura( state.factura.id ) 
+          );
+        }        
+      }
+      catch ( error ) {
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
+      }
+    },
+    async deleteDetalleFactura( {commit, state}, id ) {
+      try {
+        await apiFacturacion.delDetalle( id );
+        commit( 
+          'SET_FACTURA', 
+          await apiFacturacion.getFactura(state.factura.id) 
+        );
+        alert('Detalle eliminado exitosamente' );
+      }
+      catch ( error ) {
+        console.log( 'HTTP error! status: ' + error );
+        alert('Error inesperado');
       }
     },
   }

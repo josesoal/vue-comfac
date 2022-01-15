@@ -21,7 +21,7 @@ export default class Api {
     )
   
     if ( !res.ok ) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error( res.status );
     }
   
     const token = await res.json();
@@ -44,7 +44,7 @@ export default class Api {
     );
 
     if ( !res.ok ) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error( res.status );
     }
 
     const items = await res.json();
@@ -73,7 +73,7 @@ export default class Api {
     );
 
     if ( !res.ok ) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error( res.status );
     }
 
     const item = await res.json();
@@ -95,7 +95,7 @@ export default class Api {
     )
 
     if ( !res.ok ) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error( res.status );
     }
   }
 

@@ -14,8 +14,23 @@ class ApiFacturacion extends Api {
   async delCliente( id ) {
     return await super.delete( 'cliente', id );
   }
-  /*** FACTURA ***/
-  
+  async getClienteByName( texto ) {
+    return await super.get( 'cliente/by-name', texto );
+  }
+  /*** FACTURA MAESTRO ***/
+  async getFactura( id ) {
+    return await super.get( 'factura', id );
+  }
+  async saveFactura( obj ) {
+    return await super.save( 'factura', obj );
+  }
+  /*** FACTURA DETALLE ***/
+  async saveDetalle( obj ) {
+    return await super.save( 'factura-detalle', obj );
+  }
+  async delDetalle( id ) {
+    return await super.delete( 'factura-detalle', id );
+  }
 }
 
 export default new ApiFacturacion();
