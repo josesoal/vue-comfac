@@ -170,18 +170,18 @@ export default {
     nuevaCompra() {
       this.$store.dispatch( 'cleanCompra' ).moduleC;
       
-      this.$data.detalle.cantidad = '';
-      this.$data.detalle.precio = '';
-      this.$data.detalle.descuento = 0;
-      this.$data.detalle.producto = '';
-      this.$data.detalle.cabecera = -1;
+      this.detalle.cantidad = '';
+      this.detalle.precio = '';
+      this.detalle.descuento = 0;
+      this.detalle.producto = '';
+      this.detalle.cabecera = -1;
 
       this.$refs.form.resetValidation(); 
     },
     cleanDetalle() {
-      this.$data.detalle.producto = '';
-      this.$data.detalle.cantidad = '';
-      this.$data.detalle.precio = '';
+      this.detalle.producto = '';
+      this.detalle.cantidad = '';
+      this.detalle.precio = '';
 
       this.$refs.form.resetValidation();
     },
@@ -191,25 +191,19 @@ export default {
           'saveCompra', 
           { 
             compra: this.store_compra,
-            detalle: this.$data.detalle 
+            detalle: {...this.detalle} 
           } 
         ).moduleC;
       }
       else { /* compra ya existe! */
-        this.$data.detalle.cabecera = this.store_compra.id;
+        this.detalle.cabecera = this.store_compra.id;
 
         await this.$store.dispatch( 
           'saveDetalle', 
-          this.$data.detalle 
-        ).moduleC;
-
-        this.$data.detalle.cantidad = '';
-        this.$data.detalle.precio = '';
-        this.$data.detalle.descuento = 0;
-        this.$data.detalle.producto = ''; 
-        
-        this.$refs.form.resetValidation(); 
-      }      
+          {...this.detalle} 
+        ).moduleC; 
+      }
+      this.cleanDetalle();      
     },
     showSearch(){
       this.$refs.search.show();

@@ -189,18 +189,18 @@ export default {
     nuevaFactura() {
       this.$store.dispatch( 'cleanFactura' ).moduleF;
       
-      this.$data.detalle.cantidad = '';
-      this.$data.detalle.precio = '';
-      this.$data.detalle.descuento = 0;
-      this.$data.detalle.producto = '';
-      this.$data.detalle.cabecera = -1;
+      this.detalle.cantidad = '';
+      this.detalle.precio = '';
+      this.detalle.descuento = 0;
+      this.detalle.producto = '';
+      this.detalle.cabecera = -1;
 
       this.$refs.form.resetValidation(); 
     },
     cleanDetalle() {
-      this.$data.detalle.producto = '';
-      this.$data.detalle.cantidad = '';
-      this.$data.detalle.precio = '';
+      this.detalle.producto = '';
+      this.detalle.cantidad = '';
+      this.detalle.precio = '';
 
       this.$refs.form.resetValidation();
     },
@@ -216,25 +216,19 @@ export default {
           'saveFactura', 
           { 
             factura: this.store_factura,
-            detalle: this.$data.detalle 
+            detalle: {...this.detalle} 
           } 
         ).moduleF;
       }
       else { /* compra ya existe! */
-        this.$data.detalle.cabecera = this.store_factura.id;
+        this.detalle.cabecera = this.store_factura.id;
 
         await this.$store.dispatch( 
           'saveDetalleFactura', 
-          this.$data.detalle 
-        ).moduleF;
-
-        this.$data.detalle.cantidad = '';
-        this.$data.detalle.precio = '';
-        this.$data.detalle.descuento = 0;
-        this.$data.detalle.producto = ''; 
-        
-        this.$refs.form.resetValidation(); 
-      }      
+          {...this.detalle} 
+        ).moduleF; 
+      }
+      this.cleanDetalle();      
     },
     showSearchFactura(){
       this.$refs.searchFactura.show();

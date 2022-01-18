@@ -140,7 +140,7 @@ export default {
     async save() {
       await this.$store.dispatch( 
         'saveCliente', 
-        this.$data.cliente 
+        {...this.cliente} 
       ).moduleF;
 
       this.close();

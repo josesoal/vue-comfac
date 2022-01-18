@@ -207,8 +207,15 @@ const moduleCompra = {
         commit( 'SET_COMPRA', await apiCompra.getCompra(id) );
       }
       catch ( error ) {
-        console.log( 'HTTP error! status: ' + error );
-        alert('Error inesperado');
+        if ( error.toString() === 'Error: 404') {
+          commit( 'CLEAN_COMPRA' );
+          console.log( 'HTTP error! status: ' + error );
+          alert('Compra no encontrada');
+        }
+        else {
+          console.log( 'HTTP error! status: ' + error );
+          alert('Error inesperado');
+        }
       }
     },
     async saveCompra( {commit}, {compra, detalle} ) {
@@ -306,6 +313,7 @@ const moduleFacturacion = {
       state.factura.fecha = new Date().toISOString().substr(0,10);
       state.factura.cliente = '';
       state.factura.detalle = [];
+      state.cliente.nombre = '';
     },
   },
   actions: {
@@ -393,8 +401,15 @@ const moduleFacturacion = {
         commit( 'SET_CLIENTE', await apiFacturacion.getCliente( state.factura.cliente ) );
       }
       catch ( error ) {
-        console.log( 'HTTP error! status: ' + error );
-        alert('Error inesperado');
+        if ( error.toString() === 'Error: 404') {
+          commit( 'CLEAN_FACTURA' );
+          console.log( 'HTTP error! status: ' + error );
+          alert('Factura no encontrada');
+        }
+        else {
+          console.log( 'HTTP error! status: ' + error );
+          alert('Error inesperado');
+        }
       }
     },
     async saveFactura( {commit}, {factura, detalle} ) {

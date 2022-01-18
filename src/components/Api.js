@@ -1,7 +1,6 @@
 export default class Api {
   constructor() {
     this.SERVER_URL = 'http://127.0.0.1:8000/rest/v1/'
-    //this.DOCS_URL = SERVER_URL + 'docs/'
     this.TOKEN_URL = this.SERVER_URL + 'token/'
     this.USUARIO = 'dummy'
     this.PASSWORD = '9pass3word'
@@ -29,7 +28,7 @@ export default class Api {
   }
 
   async get( nombre, id ) {
-    //const token = await this.getToken();
+    const token = await this.getToken();
     let url = this.SERVER_URL + nombre + '/';
     if (id !== -1) url += id + '/';
 
@@ -38,7 +37,7 @@ export default class Api {
         method : 'GET',
         headers : {
           'Content-Type' : 'application/json',
-          //'Authorization' : 'Bearer ' + token.access
+          'Authorization' : 'Bearer ' + token.access
         }
       }
     );
@@ -53,7 +52,7 @@ export default class Api {
   }
 
   async save ( nombre, obj ) {
-    //const token = await this.getToken();
+    const token = await this.getToken();
     let url = this.SERVER_URL + nombre + '/';
     let method = 'POST';
     if ( obj.id !== -1 ) {
@@ -67,7 +66,7 @@ export default class Api {
         body: JSON.stringify( obj ),
         headers : {
           'Content-Type' : 'application/json',
-          //'Authorization' : 'Bearer ' + token.access
+          'Authorization' : 'Bearer ' + token.access
         }
       }
     );
@@ -81,7 +80,7 @@ export default class Api {
   }
 
   async delete( nombre, id ) {
-    //const token = await this.getToken();
+    const token = await this.getToken();
     let url = this.SERVER_URL + nombre + '/' + id + '/';
     
     const res = await fetch (
@@ -89,7 +88,7 @@ export default class Api {
         method : 'DELETE',
         headers : {
           'Content-Type' : 'application/json',
-          //'Authorization' : 'Bearer ' + token.access
+          'Authorization' : 'Bearer ' + token.access
         }
       }
     )

@@ -127,9 +127,13 @@ export default {
       this.dialog = false;
     },
     async save() {
-      await this.$store.dispatch( 
+      /*await this.$store.dispatch( 
         'saveProveedor', 
         this.$data.proveedor 
+      ).moduleC;*/
+      await this.$store.dispatch( 
+        'saveProveedor',
+        {...this.proveedor} 
       ).moduleC;
 
       this.close();
