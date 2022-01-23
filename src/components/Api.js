@@ -1,3 +1,6 @@
+import ApiAuth from './login/ApiAuth';
+const apiAuth = new ApiAuth(); 
+
 export default class Api {
   constructor() {
     this.SERVER_URL = 'http://127.0.0.1:8000/rest/v1/'
@@ -24,10 +27,8 @@ export default class Api {
     }
   
     const token = await res.json();*/
-    const token = { 
-      access: localStorage.getItem('access'), 
-      refresh: localStorage.getItem('refresh') 
-    }
+
+    const token = await apiAuth.getToken();
     return token;
   }
 
