@@ -471,6 +471,6 @@ export default new Vuex.Store({
   modules: {
     moduleI: moduleInventario,
     moduleC: moduleCompra,
-    moduleF: moduleFacturacion
+    moduleF: moduleFacturacion,
   }
 });

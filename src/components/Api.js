@@ -2,13 +2,13 @@ export default class Api {
   constructor() {
     this.SERVER_URL = 'http://127.0.0.1:8000/rest/v1/'
     this.TOKEN_URL = this.SERVER_URL + 'token/'
-    this.USUARIO = 'dummy'
+    /*this.USUARIO = 'dummy'
     this.PASSWORD = '9pass3word'
-    this.credenciales = { 'username' : this.USUARIO, 'password': this.PASSWORD}
+    this.credenciales = { 'username' : this.USUARIO, 'password': this.PASSWORD}*/
   }
 
   async getToken() {
-    const res = await fetch (
+    /*const res = await fetch (
       this.TOKEN_URL, {
         method : 'POST',
         body : JSON.stringify( this.credenciales ),
@@ -23,7 +23,11 @@ export default class Api {
       throw new Error( res.status );
     }
   
-    const token = await res.json();
+    const token = await res.json();*/
+    const token = { 
+      access: localStorage.getItem('access'), 
+      refresh: localStorage.getItem('refresh') 
+    }
     return token;
   }
 

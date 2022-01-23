@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app>
+  <v-navigation-drawer v-model="drawer" app>
     <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
@@ -43,8 +43,14 @@ export default {
         { title: 'Facturación', icon: 'mdi-help-box', route: '/facturacion' },
       ],
       right: null,
+      drawer: true,
     }
   },
+  methods: {
+    show() {
+      this.drawer = !this.drawer;
+    }
+  }
 }
 </script>
 
