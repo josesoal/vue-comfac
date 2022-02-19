@@ -2,7 +2,7 @@
 
 This is the source code of a Inventory and Billing System (Frontend) implemented in VueJS.
 
->The source code of the **frontend** can be seen at https://github.com/josesoal/api_comfac
+>The source code of the **backend** can be seen at https://github.com/josesoal/api_comfac
 
 ## Features
 
